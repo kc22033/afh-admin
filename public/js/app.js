@@ -41334,8 +41334,6 @@ if (!window.Quill) {
 		};
 	},
 	mounted: function mounted() {
-		var _this = this;
-
 		this.$nextTick(function () {
 			// code that assumes this.$el is in-document
 			this.getStatuses();
@@ -41345,12 +41343,12 @@ if (!window.Quill) {
 		});
 		this.getSelectedAnimal();
 		$('[data-toggle="tooltip"]').tooltip();
-		$("#date-of-birth").datepicker().on("changeDate", function () {
-			_this.animal.date_of_birth = $('#date-of-birth').val();
-		});
-		$("#intake-date").datepicker().on("changeDate", function () {
-			_this.animal.date_of_birth = $('#intake-date').val();
-		});
+		// $("#date-of-birth").datepicker().on(
+		// 	"changeDate", () => {this.animal.date_of_birth = $('#date-of-birth').val()}
+		// );
+		// $("#intake-date").datepicker().on(
+		// 	"changeDate", () => {this.animal.date_of_birth = $('#intake-date').val()}
+		// );
 	},
 
 	computed: {
@@ -41477,10 +41475,10 @@ if (!window.Quill) {
    * Get list of available status values
    */
 		getStatuses: function getStatuses() {
-			var _this2 = this;
+			var _this = this;
 
 			window.axios.get('/api/status').then(function (response) {
-				_this2.statusList = response.data;
+				_this.statusList = response.data;
 			});
 		},
 
@@ -41489,10 +41487,10 @@ if (!window.Quill) {
    * Get list of available species values
    */
 		getSpecies: function getSpecies() {
-			var _this3 = this;
+			var _this2 = this;
 
 			window.axios.get('/api/species').then(function (response) {
-				_this3.speciesList = response.data;
+				_this2.speciesList = response.data;
 			});
 		},
 
@@ -41501,10 +41499,10 @@ if (!window.Quill) {
    * Get list of available gender values
    */
 		getGenders: function getGenders() {
-			var _this4 = this;
+			var _this3 = this;
 
 			window.axios.get('/api/genders').then(function (response) {
-				_this4.genderList = response.data;
+				_this3.genderList = response.data;
 			});
 		},
 
@@ -41513,11 +41511,11 @@ if (!window.Quill) {
    * Get a list of breeds
    */
 		getBreeds: function getBreeds() {
-			var _this5 = this;
+			var _this4 = this;
 
 			if (!this.animal.species) this.animal.species = "Dog";
 			window.axios.get('/api/breeds', { params: { species: this.animal.species } }).then(function (response) {
-				_this5.breedList = response.data;
+				_this4.breedList = response.data;
 			});
 		},
 		initAnimal: function initAnimal() {
@@ -41552,17 +41550,17 @@ if (!window.Quill) {
    * Get single animal
    */
 		getSelectedAnimal: function getSelectedAnimal() {
-			var _this6 = this;
+			var _this5 = this;
 
 			this.initAnimal();
 			if (this.animalId > 0) {
 				window.axios.get('/api/animals/' + this.animalId).then(function (response) {
-					_this6.animal = Object.assign({}, _this6.animal, response.data);
-					if (_this6.isClone) {
-						_this6.animalId = 0;
-						_this6.animal.id = 0;
-						_this6.animal.name = "";
-						_this6.animal.rescue_groups_id = response.data.rescue_groups_id || 0;
+					_this5.animal = Object.assign({}, _this5.animal, response.data);
+					if (_this5.isClone) {
+						_this5.animalId = 0;
+						_this5.animal.id = 0;
+						_this5.animal.name = "";
+						_this5.animal.rescue_groups_id = response.data.rescue_groups_id || 0;
 					}
 				});
 			}
