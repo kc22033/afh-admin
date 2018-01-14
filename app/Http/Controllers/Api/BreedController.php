@@ -17,23 +17,28 @@ class BreedController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
+    public function index(request $request, $species = 'Dog')
     {
-        //
-        Log::info('Species.index >>>' . $request->query('species') . '<<<');
-        $species = Species::where('name', $request->query('species'))->orderBy('name')->firstOrFail();
-        // Log::info('Species: ' . $species->id);
-
-        $breed = DB::table('breeds')->where('species_id', $species->id)->pluck('name');
-
-        $breeds = array();
-        foreach ($breed as $name) {
-            $next = app()->make('stdClass');
-            $next->text = $name;
-            $next->value = $name;
-
-            $breeds[] = $next;
+        $speciesList = config('afh.species_list');
+        if ( in_array( $species, $speciesList ) )
+        {
+            $species = Species::where('name', $species)->orderBy('name')->firstOrFail();
+            
+            $breed = DB::table('breeds')->where('species_id', $species->id)->pluck('name');
+            
+            $breeds = array();
+            foreach ($breed as $name) {
+                $next = app()->make('stdClass');
+                $next->text = $name;
+                $next->value = $name;
+                
+                $breeds[] = $next;
+            }
+            return response()->json($breeds);
+        } else {
+            return response()->json([
+                'message' => 'Invalid Request.',
+            ], 404);
         }
-        return $breeds;
     }
 }

@@ -56,7 +56,7 @@
 						class="form-control" 
 						id="species"
 						@change="$set(animal, 'species', $event.target.value)">
-						<option v-for="species in speciesList" :value="species.value" :selected="(species.value == animal.species)">
+						<option v-for="species in speciesList" :key="species.value" :value="species.value" :selected="(species.value == animal.species)">
 							{{ species.text }}
 						</option>
 					</select>
@@ -70,7 +70,7 @@
 						id="pri_breed"
 						@change="$set(animal, 'pri_breed', $event.target.value)">
 						<option value=""></option>
-						<option v-for="breed in breedList" :value="breed.value" :selected="(breed.value == animal.pri_breed)">
+						<option v-for="breed in breedList" :key="breed.value" :value="breed.value" :selected="(breed.value == animal.pri_breed)">
 							{{ breed.text }}
 						</option>
 					</select>
@@ -84,7 +84,7 @@
 						id="sec_breed"
 						@change="$set(animal, 'sec_breed', $event.target.value)">
 						<option value=""></option>
-						<option v-for="breed in breedList" :value="breed.value" :selected="(breed.value == animal.sec_breed)">
+						<option v-for="breed in breedList" :key="breed.value" :value="breed.value" :selected="(breed.value == animal.sec_breed)">
 							{{ breed.text }}
 						</option>
 					</select>
@@ -127,7 +127,7 @@
 						class="form-control" 
 						id="gender"
 						@change="$set(animal, 'sex', $event.target.value)">
-						<option v-for="gender in genderList" :value="gender.value" :selected="(gender.value == animal.sex)">
+						<option v-for="gender in genderList" :key="gender.value" :value="gender.value" :selected="(gender.value == animal.sex)">
 							{{ gender.text }}
 						</option>
 					</select>
@@ -147,7 +147,7 @@
 						class="form-control" 
 						id="status"
 						@change="$set(animal, 'status', $event.target.value)">
-						<option v-for="status in statusList" :value="status.value" :selected="(status.value == animal.status)">
+						<option v-for="status in statusList" :key="status.value" :value="status.value" :selected="(status.value == animal.status)">
 							{{ status.text }}
 						</option>
 					</select>
@@ -162,8 +162,10 @@
 			<div class="col-md-2">
 				<div class="form-group">
 					<label for="intake-date">Intake Date:</label>
-					<input type="text" id="intake-date" v-model="animal.intake_date">
-					<!-- <datepicker v-model="animal.intake_date"></datepicker> -->
+					<div class="input-group date">
+						<input type="text" id="intake-date" v-model="animal.intake_date">
+						<span class="input-group-addon"><i class="fa fa-calendar" aria-hidden="true"></i></span>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -275,7 +277,7 @@
     import toastr from 'toastr'
 	import { quillEditor } from 'vue-quill-editor'
 	import Dropzone from 'vue2-dropzone'
-	import datepicker from 'vue-date'
+	import datepicker from 'bootstrap-datepicker'
 
     export default {
         name: 'afh-animal-edit',
@@ -293,7 +295,7 @@
         },
         data: function() {
             return {
-            	dateFormat: 'MM-dd-yyyy',
+            	dateFormat: 'MM-DD-yyyy',
 	        	speciesList: [],
 	            breedList: [],
 	            genderList: [],
@@ -334,9 +336,9 @@
 			// $("#date-of-birth").datepicker().on(
 			// 	"changeDate", () => {this.animal.date_of_birth = $('#date-of-birth').val()}
 			// );
-			// $("#intake-date").datepicker().on(
-			// 	"changeDate", () => {this.animal.date_of_birth = $('#intake-date').val()}
-			// );
+			$("#intake-date").datepicker().on(
+				"changeDate", () => {this.animal.intake_date = $('#intake-date').val()}
+			);
 		},
 		computed: {
 			editor() {

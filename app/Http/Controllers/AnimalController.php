@@ -8,12 +8,6 @@ use Log;
 
 class AnimalController extends Controller
 {
-    //
-    public function index()
-    {
-    	return view('animals');
-    }
-
     public function clone(Request $request, $id)
     {
 		Log::info('clone id = ' . $id);

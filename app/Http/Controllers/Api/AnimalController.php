@@ -36,15 +36,10 @@ class AnimalController extends Controller
     public function index(Request $request)
     {
         //
-        $status = $request->query('status');
-        $species = $request->query('species');
-        $orderBy = $request->query('orderBy');
-        $sortOrder = $request->query('sortOrder');
-
-        if( empty( $status )) { $status = "Available"; }
-        if( empty( $species )) { $species = "Dog"; }
-        if( empty( $orderBy )) { $orderBy = "name"; }
-        if( empty( $sortOrder )) { $sortOrder = "asc"; }
+        $status = $request->query('status', 'Available');
+        $species = $request->query('species', 'Dog');
+        $orderBy = $request->query('orderBy', 'name');
+        $sortOrder = $request->query('sortOrder', 'asc');
 
         Log::info('Api/AnimalController.index - status: ' . $status . ' / species: ' . $species . ' / orderBy: ' . $orderBy . ' / sortOrder: ' . $sortOrder);
 

@@ -32,4 +32,13 @@ return [
     'public_image_path' => env('PUBLIC_IMAGE_PATH'),
     
     'upload_dir' => env('UPLOAD_DIR'),
+
+    'age_baby' => 112, // 16 weeks
+    'age_young' => 730, // 2 years
+    'age_adult' => 3650, // 10 years
+
+    'trand_length' => 730, // 2 years
+
+    'species_list' => [ 'Dog', 'Cat' ], // , 'Horse', 'Pig', 'Goat' ],
+
 ];

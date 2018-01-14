@@ -41,6 +41,7 @@
                                     id="species"
                                     @change="onSelectSpecies($event.target.value)">
                                     <option v-for="species in speciesList" 
+                                        :key="species.value" 
                                         :value="species.value" 
                                         :selected="(species.value == working.species)">
                                         {{ species.text }}
@@ -53,6 +54,7 @@
                                     id="status"
                                     @change="onSelectStatus($event.target.value)">
                                     <option v-for="status in statusList" 
+                                        :key="status.value" 
                                         :value="status.value" 
                                         :selected="(status.value == working.status)">
                                         {{ status.text }}
@@ -96,7 +98,7 @@
                         </thead>
 
                         <tbody>
-                            <tr v-for="item in filteredData">
+                            <tr v-for="item in filteredData" :key="item.id">
                                 <!-- Select -->
                                 <td style="vertical-align: middle;">
                                     <input type="checkbox" :id="item.id" :value="item.id" v-model="selectList">
@@ -158,6 +160,7 @@
                                                     id="new-status"
                                                     @change="onSelectNewStatus($event.target.value)">
                                                     <option v-for="status in statusList" 
+                                                        :key="status.value" 
                                                         :value="status.value" 
                                                         :selected="(status.value == newStatus.value)">
                                                         {{ status.text }}

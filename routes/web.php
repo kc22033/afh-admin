@@ -24,16 +24,16 @@ Route::group(['middleware' => ['web', 'auth']], function() {
 		'as' => 'admin.user.create'
 	]);
 
-	Route::get('/home', 'HomeController@index');
+	// Route::get('/home', 'HomeController@index');
 
-	Route::get('/animals', 'AnimalController@index');
-	Route::get('/animals/edit', 'AnimalController@edit');
-	Route::get('/animals/clone/{id}', 'AnimalController@clone');
-	Route::post('/upload', 'ImageController@upload');
+	// // Route::get('/animals', 'AnimalController@index');
+	// Route::get('/animals/edit', 'AnimalController@edit');
+	// Route::get('/animals/clone/{id}', 'AnimalController@clone');
+	// Route::post('/upload', 'ImageController@upload');
 
-	Route::get('/breed/no-description/{breed}', function ($breed) {
-		return "No description information available for breed " . $breed;
-	});
+	// Route::get('/breed/no-description/{breed}', function ($breed) {
+	// 	return "No description information available for breed " . $breed;
+	// });
 
 });
 
